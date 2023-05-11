@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: template-ui
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: template-ui
+  template:
+    metadata:
+      labels:
+        app: template-ui
+    spec:
+      containers:
+        - name: template-ui
+          image: template-ui:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: '1'
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: template-ui-balancer
+spec:
+  selector:
+    app: template-ui
+  ports:
+    - protocol: TCP
+      port: 8000 # The port to expose to the outside
+      targetPort: 8080 # The port the application is running on in the pods
+  type: LoadBalancer
+  sessionAffinity: ClientIP

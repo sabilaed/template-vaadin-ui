@@ -22,3 +22,11 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+frontend/index.html
+frontend/generated/*
+node_modules/*
+target/*
+tsconfig.json
+types.d.ts
+vite.config.ts
+vite.generated.ts
